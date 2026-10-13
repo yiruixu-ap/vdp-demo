@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useLocale } from "@/hooks/use-locale";
 import { useVehicle } from "@/hooks/use-vehicle";
 import { t } from "@/data/translations";
+import { asset } from "@/lib/asset";
 
 export function BeritaTerkaitSection() {
   const { locale } = useLocale();
@@ -21,7 +22,7 @@ export function BeritaTerkaitSection() {
         {vehicle.relatedNews.map((news, idx) => (
           <article key={idx} className="overflow-hidden rounded-xl border border-[#e2e8f0] bg-white">
             <div className="relative h-36 w-full bg-[#f8fafc]">
-              <Image src={news.image} alt={news.title} fill className="object-cover" />
+              <Image src={asset(news.image)} alt={news.title} fill className="object-cover" />
             </div>
             <div className="p-4">
               <p className="text-xs font-semibold uppercase tracking-wide text-[#155dfc]">{news.category}</p>

@@ -6,6 +6,7 @@ import { useLocale } from "@/hooks/use-locale";
 import { useVehicle } from "@/hooks/use-vehicle";
 import { t } from "@/data/translations";
 import { formatJuta } from "@/lib/format";
+import { asset } from "@/lib/asset";
 
 export function HeroSection() {
   const { locale } = useLocale();
@@ -22,7 +23,7 @@ export function HeroSection() {
         <div className="md:col-span-2">
           <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-[#e2e8f0] bg-[#f8fafc]">
             <Image
-              src={vehicle.image}
+              src={asset(vehicle.image)}
               alt={`${vehicle.brand} ${vehicle.model}`}
               fill
               className="object-cover"

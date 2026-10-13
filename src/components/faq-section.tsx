@@ -5,10 +5,8 @@ import { useVehicle } from "@/hooks/use-vehicle";
 import { t } from "@/data/translations";
 
 /**
- * Single Q&A block. The previous "quick answers" section was folded in here
- * (optimisation #5) — there is no separate AI section.
- * Items marked with `highlight` are expanded by default; the rest start
- * collapsed but are still rendered in the DOM for crawlers.
+ * Single Q&A block. All items are expanded by default; users can still
+ * collapse them manually. Everything stays in the DOM for crawlers.
  */
 export function FaqSection() {
   const { locale } = useLocale();
@@ -38,7 +36,7 @@ export function FaqSection() {
           <details
             key={item.question}
             className="group rounded-lg border border-[#e2e8f0] bg-white"
-            open={item.highlight}
+            open
           >
             <summary className="flex cursor-pointer list-none items-center justify-between p-4 text-base font-semibold text-[#0f172a]">
               {item.question}

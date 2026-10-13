@@ -118,22 +118,19 @@ export const rushSeed: VehicleSeed = {
   ],
 
   // One merged Q&A block (optimisation #5): FAQ + previously separate quick answers.
-  // `highlight: true` items are expanded by default; the rest start collapsed.
+  // All items are expanded by default.
   faq: [
     {
-      highlight: true,
       question: "Berapa cicilan Rush per bulan?",
       answer:
         "Cicilan paling ringan dimulai sekitar Rp 4,6 juta per bulan untuk skenario DP 20% dan tenor 5 tahun dengan suku bunga 8%. Gunakan slider di atas tabel Cicilan untuk melihat skenario DP 30%, DP 40%, atau tenor 1 tahun / 3 tahun. Angka final tetap tergantung persetujuan leasing dan dealer.",
     },
     {
-      highlight: true,
       question: "Rush vs Terios vs BR-V, sebaiknya pilih yang mana?",
       answer:
         "Pilih Rush jika prioritasmu jaringan servis terluas dan nilai jual kembali stabil. Pilih Daihatsu Terios jika ingin mesin/sasis yang sama dengan harga beli sedikit lebih rendah. Pilih Honda BR-V jika butuh tenaga lebih besar (121 PS) dan transmisi CVT lebih halus, dengan anggaran sedikit lebih tinggi.",
     },
     {
-      highlight: true,
       question: "Berapa total biaya yang perlu disiapkan untuk membeli Rush?",
       answer:
         "Selain harga mobil baru Rp 282 juta, siapkan biaya on-road sekitar Rp 307 juta. Selisih tersebut mencakup BBN-KB, asuransi all-risk, dan biaya administrasi. Diskon atau promo dari dealer bisa mengurangi nominal final, tetapi bervariasi tergantung waktu dan lokasi.",

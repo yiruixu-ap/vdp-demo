@@ -42,8 +42,6 @@ export interface ExpertReviewSection {
 export interface FaqItem {
   question: string;
   answer: string;
-  /** When true, the FAQ item is expanded by default. */
-  highlight?: boolean;
 }
 
 export interface RelatedNews {
