@@ -35,6 +35,8 @@ jobs:
         env:
           BASE_PATH: /${{ github.event.repository.name }}
           NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+          # 仅演示站防收录：删掉这一行，站点即恢复可被搜索引擎收录
+          NEXT_PUBLIC_NOINDEX: "true"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

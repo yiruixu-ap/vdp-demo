@@ -17,10 +17,22 @@ const poppins = Poppins({
   display: "swap",
 });
 
+// 仅演示站防收录：该开关只由 GitHub Pages 部署工作流打开，
+// 生产环境不设；删掉 deploy.yml 里 NEXT_PUBLIC_NOINDEX 那一行即恢复可收录。
+const noindex = process.env.NEXT_PUBLIC_NOINDEX === "true";
+
 export const metadata: Metadata = {
   title: "Toyota Rush 2026 - Harga OTR, Cicilan & Ulasan | otochannel",
   description:
     "Detail Toyota Rush 2026: harga OTR Jakarta, varian, cicilan, biaya bulanan, spesifikasi, ulasan pengguna & ahli.",
+  robots: noindex
+    ? {
+        index: false,
+        follow: false,
+        nocache: true,
+        googleBot: { index: false, follow: false },
+      }
+    : { index: true, follow: true },
 };
 
 export default function RootLayout({
