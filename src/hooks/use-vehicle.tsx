@@ -1,17 +1,29 @@
 "use client";
 
-import { createContext, useContext, ReactNode } from "react";
-import type { VehicleDetail } from "@/types";
+import { createContext, useContext, useState, ReactNode } from "react";
+import type { VehicleDetail, VehicleVariant } from "@/types";
 
-const VehicleContext = createContext<VehicleDetail | undefined>(undefined);
+interface VehicleContextValue extends VehicleDetail {
+  selectedVariantIndex: number;
+  setSelectedVariantIndex: (index: number) => void;
+}
+
+const VehicleContext = createContext<VehicleContextValue | undefined>(undefined);
 
 /**
- * Supplies the current vehicle to every section component.
- * Sections read `useVehicle()` instead of importing a specific model's data,
- * so the same components render any vehicle in the registry.
+ * Supplies the current vehicle and the user-selected variant to every section.
+ * Sections read `useVehicle()` for the vehicle object and
+ * `useSelectedVariant()` for the active variant + setter.
  */
 export function VehicleProvider({ vehicle, children }: { vehicle: VehicleDetail; children: ReactNode }) {
-  return <VehicleContext.Provider value={vehicle}>{children}</VehicleContext.Provider>;
+  const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
+  return (
+    <VehicleContext.Provider
+      value={{ ...vehicle, selectedVariantIndex, setSelectedVariantIndex }}
+    >
+      {children}
+    </VehicleContext.Provider>
+  );
 }
 
 export function useVehicle(): VehicleDetail {
@@ -20,4 +32,21 @@ export function useVehicle(): VehicleDetail {
     throw new Error("useVehicle must be used within VehicleProvider");
   }
   return ctx;
+}
+
+export function useSelectedVariant(): {
+  variant: VehicleVariant;
+  index: number;
+  setIndex: (index: number) => void;
+} {
+  const ctx = useContext(VehicleContext);
+  if (!ctx) {
+    throw new Error("useSelectedVariant must be used within VehicleProvider");
+  }
+  const { variants, selectedVariantIndex, setSelectedVariantIndex } = ctx;
+  return {
+    variant: variants[selectedVariantIndex],
+    index: selectedVariantIndex,
+    setIndex: setSelectedVariantIndex,
+  };
 }

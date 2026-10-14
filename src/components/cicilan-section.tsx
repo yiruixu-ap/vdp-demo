@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useLocale } from "@/hooks/use-locale";
-import { useVehicle } from "@/hooks/use-vehicle";
+import { useVehicle, useSelectedVariant } from "@/hooks/use-vehicle";
 import { t } from "@/data/translations";
 import { formatJuta } from "@/lib/format";
 import { monthlyInstallmentJuta } from "@/lib/finance";
@@ -11,6 +11,7 @@ import { DataSampleBadge } from "./data-sample-badge";
 export function CicilanSection() {
   const { locale } = useLocale();
   const vehicle = useVehicle();
+  const { variant } = useSelectedVariant();
   const { financing } = vehicle;
 
   // Optimisation #6: the annual rate is user-adjustable via a single slider.
@@ -24,6 +25,12 @@ export function CicilanSection() {
         </h2>
         <DataSampleBadge />
       </div>
+
+      <p className="mb-4 text-sm font-semibold text-[#155dfc]">
+        {t("variantBasis", locale)
+          .replace("{variant}", variant.name)
+          .replace("{price}", formatJuta(variant.priceJuta))}
+      </p>
 
       <div className="mb-5 rounded-lg border border-[#e2e8f0] bg-[#f8fafc] p-4">
         <div className="flex flex-wrap items-center justify-between gap-2">
@@ -76,7 +83,7 @@ export function CicilanSection() {
                 {financing.tenorsYears.map((year) => (
                   <td key={year} className="px-3 py-3 text-right">
                     <span className="font-bold text-[#0f172a]">
-                      {formatJuta(monthlyInstallmentJuta(vehicle.priceJuta, dp, ratePct, year))}
+                      {formatJuta(monthlyInstallmentJuta(variant.priceJuta, dp, ratePct, year))}
                     </span>
                     <span className="ml-1 text-xs text-[#94a3b8]">{t("cicilanPerMonth", locale)}</span>
                   </td>

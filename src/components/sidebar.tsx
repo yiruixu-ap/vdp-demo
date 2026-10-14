@@ -1,22 +1,24 @@
 "use client";
 
 import { useLocale } from "@/hooks/use-locale";
-import { useVehicle } from "@/hooks/use-vehicle";
+import { useVehicle, useSelectedVariant } from "@/hooks/use-vehicle";
 import { t } from "@/data/translations";
 import { formatJuta } from "@/lib/format";
 
 export function Sidebar() {
   const { locale } = useLocale();
   const vehicle = useVehicle();
+  const { variant } = useSelectedVariant();
 
   return (
     <aside className="space-y-4 lg:sticky lg:top-6">
       <div className="rounded-xl border border-[#e2e8f0] bg-white p-5">
         <p className="text-sm font-semibold text-[#64748b]">{t("hargaNyataOfficial", locale)}</p>
         <p className="mt-1 font-[family-name:var(--font-poppins)] text-3xl font-extrabold text-[#0f172a]">
-          {formatJuta(vehicle.priceJuta)}
+          {formatJuta(variant.priceJuta)}
         </p>
         <p className="text-xs text-[#94a3b8]">{vehicle.priceNote[locale]}</p>
+        <p className="mt-1 text-xs font-semibold text-[#155dfc]">{variant.name}</p>
 
         <div className="mt-4 space-y-2">
           <a

@@ -51,6 +51,26 @@ export const paramsDictionary: Record<string, Record<Locale, string>> = {
     en: "Body shape. SUVs are usually taller and handle rough roads better.",
     fil: "Hugis ng katawan. Ang SUV ay karaniwang mas mataas at angkop sa hindi patag na kalsada.",
   },
+  Dimensi: {
+    id: "Panjang × lebar × tinggi kendaraan dalam mm.",
+    en: "Length × width × height of the vehicle in mm.",
+    fil: "Haba × lapad × taas ng sasakyan sa mm.",
+  },
+  "Jarak sumbu roda": {
+    id: "Jarak antara pusat roda depan dan belakang. Lebih panjang biasanya lebih stabil dan lapang.",
+    en: "Distance between the front and rear wheel centers. Longer usually means more stability and cabin space.",
+    fil: "Distansya sa pagitan ng sentro ng gulong sa harap at likod. Mas mahaba ay karaniwang mas matatag at maluwag.",
+  },
+  "Ground clearance": {
+    id: "Jarak terendah dari bodi ke tanah. Lebih tinggi lebih aman di jalan tidak rata.",
+    en: "Lowest distance from the body to the ground. Higher is safer on uneven roads.",
+    fil: "Pinakamababang distansya mula sa katawan hanggang sa lupa. Mas mataas ay mas ligtas sa hindi patag na kalsada.",
+  },
+  "Kapasitas tangki": {
+    id: "Volume tangki bahan bakar. Lebih besar bisa lebih jarang isi bensin.",
+    en: "Fuel tank volume. Larger means fewer refuelling stops.",
+    fil: "Dami ng gasolina ang kayang saluhin ng tangke. Mas malaki ay mas madalang maggasolina.",
+  },
 };
 
 export function explainParam(key: string, locale: Locale): string | undefined {

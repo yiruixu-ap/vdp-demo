@@ -1,17 +1,18 @@
 "use client";
 
 import { useLocale } from "@/hooks/use-locale";
-import { useVehicle } from "@/hooks/use-vehicle";
+import { useVehicle, useSelectedVariant } from "@/hooks/use-vehicle";
 import { t } from "@/data/translations";
 import { formatJuta } from "@/lib/format";
 
 export function HargaNyataSection() {
   const { locale } = useLocale();
   const vehicle = useVehicle();
+  const { variant } = useSelectedVariant();
   const { realPrice } = vehicle;
 
-  // Single on-road estimate: official price + BBN-KB + insurance + admin fee.
-  const onRoadJuta = vehicle.priceJuta + realPrice.bbnJuta + realPrice.insuranceJuta + realPrice.adminJuta;
+  // Single on-road estimate: selected variant price + BBN-KB + insurance + admin fee.
+  const onRoadJuta = variant.priceJuta + realPrice.bbnJuta + realPrice.insuranceJuta + realPrice.adminJuta;
 
   return (
     <section id="harga-nyata" className="rounded-xl border border-[#e2e8f0] bg-white p-5 md:p-6">
@@ -23,7 +24,7 @@ export function HargaNyataSection() {
         <div className="flex items-center justify-between rounded-lg border border-[#e2e8f0] bg-[#f8fafc] p-4">
           <span className="text-sm font-semibold text-[#64748b]">{t("hargaNyataOfficial", locale)}</span>
           <span className="font-[family-name:var(--font-poppins)] text-lg font-bold text-[#0f172a]">
-            {formatJuta(vehicle.priceJuta)}
+            {formatJuta(variant.priceJuta)}
           </span>
         </div>
 

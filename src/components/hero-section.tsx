@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useLocale } from "@/hooks/use-locale";
-import { useVehicle } from "@/hooks/use-vehicle";
+import { useVehicle, useSelectedVariant } from "@/hooks/use-vehicle";
 import { t } from "@/data/translations";
 import { formatJuta } from "@/lib/format";
 import { asset } from "@/lib/asset";
@@ -11,10 +11,8 @@ import { asset } from "@/lib/asset";
 export function HeroSection() {
   const { locale } = useLocale();
   const vehicle = useVehicle();
-  const [variantIndex, setVariantIndex] = useState(0);
+  const { variant, index, setIndex } = useSelectedVariant();
   const [saved, setSaved] = useState(false);
-
-  const variant = vehicle.variants[variantIndex];
 
   return (
     <section className="overflow-hidden rounded-2xl border border-[#e2e8f0] bg-white p-5 md:p-6">
@@ -69,6 +67,7 @@ export function HeroSection() {
             <p className="font-[family-name:var(--font-poppins)] text-4xl font-extrabold text-[#0f172a]">
               {formatJuta(variant.priceJuta)}
             </p>
+            <p className="text-sm font-semibold text-[#155dfc]">{variant.name}</p>
           </div>
 
           <div className="mt-4 max-w-sm">
@@ -76,8 +75,8 @@ export function HeroSection() {
               {t("heroVariantLabel", locale)}
             </label>
             <select
-              value={variantIndex}
-              onChange={(e) => setVariantIndex(Number(e.target.value))}
+              value={index}
+              onChange={(e) => setIndex(Number(e.target.value))}
               className="h-11 w-full rounded-lg border border-[#e2e8f0] bg-white px-3 text-sm text-[#0f172a] outline-none focus:border-[#155dfc]"
             >
               {vehicle.variants.map((v, idx) => (

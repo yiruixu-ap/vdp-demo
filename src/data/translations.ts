@@ -18,6 +18,10 @@ export const translations: Record<string, Record<Locale, string>> = {
   heroCtaPrimary: { id: "Hitung cicilan", en: "Calculate installment", fil: "Kalkulahin hulog" },
   heroCtaSecondary: { id: "Lihat harga nyata", en: "See real price", fil: "Tingnan totoong presyo" },
 
+  // Variant linkage
+  variantSelected: { id: "Dipilih", en: "Selected", fil: "Napili" },
+  variantBasis: { id: "Basis: {variant} — {price}", en: "Basis: {variant} — {price}", fil: "Batayan: {variant} — {price}" },
+
   // Decision anchor strip (optimisation #9 — covers every section)
   anchorHarga: { id: "Harga", en: "Price", fil: "Presyo" },
   anchorSpesifikasi: { id: "Spesifikasi", en: "Specs", fil: "Espesipikasyon" },
@@ -65,6 +69,9 @@ export const translations: Record<string, Record<Locale, string>> = {
 
   // Spesifikasi
   specTitle: { id: "Spesifikasi & Fitur", en: "Specifications & Features", fil: "Mga Espesipikasyon" },
+  specGroupPerforma: { id: "Performa & Mesin", en: "Performance & Engine", fil: "Pagganap at Makina" },
+  specGroupDimensi: { id: "Dimensi & Kapasitas", en: "Dimensions & Capacity", fil: "Dimensyon at Kapasidad" },
+  specGroupOther: { id: "Lainnya", en: "Other", fil: "Iba pa" },
 
   // Bandingkan (moved to the end, trimmed to key fields)
   bandingkanTitle: { id: "Bandingkan dengan Pesaing", en: "Compare with Rivals", fil: "Ihambing sa Kalaban" },

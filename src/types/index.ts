@@ -15,7 +15,12 @@ export interface VehicleSpec {
   /** Key used to look up the plain-language explanation in params-dictionary. */
   key: string;
   label: string;
+  /** Raw numeric value. The unit field decides how it is formatted at render time. */
   value: string;
+  /** Optional logical group for rendering under section headings. */
+  group?: "performa" | "dimensi";
+  /** Optional unit used by the formatter. */
+  unit?: "ps" | "kw" | "nm" | "cc" | "kml" | "l100km" | "mm" | "l" | "kg";
 }
 
 export interface UserReviewItem {

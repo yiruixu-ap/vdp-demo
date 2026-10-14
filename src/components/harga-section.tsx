@@ -1,13 +1,14 @@
 "use client";
 
 import { useLocale } from "@/hooks/use-locale";
-import { useVehicle } from "@/hooks/use-vehicle";
+import { useVehicle, useSelectedVariant } from "@/hooks/use-vehicle";
 import { t } from "@/data/translations";
 import { formatJuta } from "@/lib/format";
 
 export function HargaSection() {
   const { locale } = useLocale();
   const vehicle = useVehicle();
+  const { index: selectedIndex } = useSelectedVariant();
 
   return (
     <section id="harga" className="rounded-xl border border-[#e2e8f0] bg-white p-5 md:p-6">
@@ -27,14 +28,27 @@ export function HargaSection() {
             </tr>
           </thead>
           <tbody>
-            {vehicle.variants.map((v) => (
-              <tr key={v.name} className="border-b border-[#f1f5f9]">
-                <td className="py-3 pr-4 font-semibold text-[#0f172a]">{v.name}</td>
-                <td className="px-3 py-3 text-[#64748b]">{v.transmission}</td>
-                <td className="px-3 py-3 text-right font-bold text-[#0f172a]">{formatJuta(v.priceJuta)}</td>
-                <td className="px-3 py-3 text-[#64748b]">{v.note || "-"}</td>
-              </tr>
-            ))}
+            {vehicle.variants.map((v, idx) => {
+              const isSelected = idx === selectedIndex;
+              return (
+                <tr
+                  key={v.name}
+                  className={`border-b border-[#f1f5f9] ${isSelected ? "bg-blue-50/60" : ""}`}
+                >
+                  <td className={`py-3 pr-4 font-semibold text-[#0f172a] ${isSelected ? "border-l-2 border-l-[#155dfc] pl-3" : ""}`}>
+                    {v.name}
+                    {isSelected && (
+                      <span className="ml-2 inline-flex items-center rounded bg-[#155dfc] px-1.5 py-0.5 text-[10px] font-bold text-white">
+                        {t("variantSelected", locale)}
+                      </span>
+                    )}
+                  </td>
+                  <td className="px-3 py-3 text-[#64748b]">{v.transmission}</td>
+                  <td className="px-3 py-3 text-right font-bold text-[#0f172a]">{formatJuta(v.priceJuta)}</td>
+                  <td className="px-3 py-3 text-[#64748b]">{v.note || "-"}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
@@ -49,8 +63,13 @@ export function HargaSection() {
               <thead>
                 <tr className="border-b border-[#e2e8f0]">
                   <th className="py-2 pr-4 text-left font-semibold text-[#64748b]">{t("bandingkanParam", locale)}</th>
-                  {vehicle.variants.map((v) => (
-                    <th key={v.name} className="px-2 py-2 text-center font-semibold text-[#64748b]">
+                  {vehicle.variants.map((v, idx) => (
+                    <th
+                      key={v.name}
+                      className={`px-2 py-2 text-center font-semibold text-[#64748b] ${
+                        idx === selectedIndex ? "bg-blue-50/60 font-bold" : ""
+                      }`}
+                    >
                       {v.name.replace(`${vehicle.model} `, "")}
                     </th>
                   ))}
@@ -64,7 +83,11 @@ export function HargaSection() {
                       <td
                         key={idx}
                         className={`px-2 py-2 text-center ${
-                          idx === row.values.length - 1 ? "font-semibold text-[#0f172a]" : "text-[#64748b]"
+                          idx === selectedIndex
+                            ? "bg-blue-50/60 font-semibold text-[#0f172a]"
+                            : idx === row.values.length - 1
+                              ? "font-semibold text-[#0f172a]"
+                              : "text-[#64748b]"
                         }`}
                       >
                         {value}
