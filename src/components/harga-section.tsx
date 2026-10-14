@@ -85,9 +85,7 @@ export function HargaSection() {
                         className={`px-2 py-2 text-center ${
                           idx === selectedIndex
                             ? "bg-blue-50/60 font-semibold text-[#0f172a]"
-                            : idx === row.values.length - 1
-                              ? "font-semibold text-[#0f172a]"
-                              : "text-[#64748b]"
+                            : "text-[#64748b]"
                         }`}
                       >
                         {value}
