@@ -2,9 +2,10 @@
 
 import { useLocale } from "@/hooks/use-locale";
 import { useVehicle, useSelectedVariant } from "@/hooks/use-vehicle";
-import { useScrollSpy } from "@/hooks/use-scroll-spy";
+import { useScrollSpy, scrollToSection } from "@/hooks/use-scroll-spy";
 import { t, translations } from "@/data/translations";
 import { formatJuta } from "@/lib/format";
+import { useState, useCallback } from "react";
 
 const quickLinks: { key: keyof typeof translations; href: string }[] = [
   { key: "anchorHarga", href: "#harga" },
@@ -14,15 +15,44 @@ const quickLinks: { key: keyof typeof translations; href: string }[] = [
   { key: "anchorBandingkan", href: "#bandingkan" },
 ];
 
+function ArrowUpRight({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M7 7h10v10" />
+      <path d="M7 17 17 7" />
+    </svg>
+  );
+}
+
 export function Sidebar() {
   const { locale } = useLocale();
   const vehicle = useVehicle();
   const { variant } = useSelectedVariant();
-  const activeHref = useScrollSpy(quickLinks.map((l) => l.href));
+  const spyActive = useScrollSpy(quickLinks.map((l) => l.href));
+  const [clickedActive, setClickedActive] = useState<string | null>(null);
+  const activeHref = clickedActive ?? spyActive;
+
+  const handleClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    scrollToSection(href, setClickedActive);
+    window.setTimeout(() => setClickedActive(null), 600);
+  }, []);
 
   return (
-    <aside className="space-y-4 lg:sticky lg:top-20">
-      <div className="rounded-xl border border-[#e2e8f0] bg-white p-5">
+    <aside className="sidebar-scroll space-y-3 lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto">
+      <div className="rounded-xl border border-[#e2e8f0] bg-white p-4">
         <p className="text-sm font-semibold text-[#64748b]">{t("hargaNyataOfficial", locale)}</p>
         <p className="mt-1 font-[family-name:var(--font-poppins)] text-3xl font-extrabold text-[#0f172a]">
           {formatJuta(variant.priceJuta)}
@@ -33,12 +63,14 @@ export function Sidebar() {
         <div className="mt-4 space-y-2">
           <a
             href="#cicilan"
+            onClick={(e) => handleClick(e, "#cicilan")}
             className="flex h-10 items-center justify-center rounded-lg bg-[#155dfc] text-sm font-bold text-white transition hover:bg-blue-700"
           >
             {t("heroCtaPrimary", locale)}
           </a>
           <a
             href="#harga-nyata"
+            onClick={(e) => handleClick(e, "#harga-nyata")}
             className="flex h-10 items-center justify-center rounded-lg border border-[#155dfc] bg-white text-sm font-bold text-[#155dfc] transition hover:bg-blue-50"
           >
             {t("heroCtaSecondary", locale)}
@@ -46,19 +78,20 @@ export function Sidebar() {
         </div>
       </div>
 
-      <div className="rounded-xl border border-[#e2e8f0] bg-white p-5">
-        <h3 className="mb-3 font-[family-name:var(--font-poppins)] text-base font-bold text-[#0f172a]">
+      <div className="rounded-xl border border-[#e2e8f0] bg-white p-4">
+        <h3 className="mb-2 font-[family-name:var(--font-poppins)] text-sm font-bold text-[#0f172a]">
           {t("onThisPage", locale)}
         </h3>
-        <div className="space-y-1">
+        <div className="space-y-0.5">
           {quickLinks.map((link) => {
             const isActive = activeHref === link.href;
             return (
               <a
                 key={link.href}
                 href={link.href}
+                onClick={(e) => handleClick(e, link.href)}
                 aria-current={isActive ? "true" : undefined}
-                className={`block rounded-lg px-3 py-1.5 text-sm font-semibold transition ${
+                className={`block rounded-lg px-2.5 py-1 text-xs font-semibold transition ${
                   isActive
                     ? "bg-[#eff6ff] text-[#155dfc]"
                     : "text-[#64748b] hover:bg-[#f1f5f9] hover:text-[#0f172a]"
@@ -71,11 +104,11 @@ export function Sidebar() {
         </div>
       </div>
 
-      <div className="rounded-xl border border-[#e2e8f0] bg-white p-5">
-        <h3 className="mb-3 font-[family-name:var(--font-poppins)] text-base font-bold text-[#0f172a]">
+      <div className="rounded-xl border border-[#e2e8f0] bg-white p-4">
+        <h3 className="mb-2 font-[family-name:var(--font-poppins)] text-sm font-bold text-[#0f172a]">
           {t("bandingkanTitle", locale)}
         </h3>
-        <div className="space-y-2 text-sm">
+        <div className="space-y-1.5 text-sm">
           {vehicle.compare
             .filter((car) => !car.isCurrent)
             .map((car) => {
@@ -85,9 +118,6 @@ export function Sidebar() {
                   <span className="font-semibold text-[#0f172a]">{car.bodyType}</span>
                 </>
               );
-              const className =
-                "flex items-center justify-between rounded-lg bg-[#f8fafc] px-3 py-2" +
-                (car.href ? " transition hover:bg-[#f1f5f9] group" : "");
 
               return car.href ? (
                 <a
@@ -95,18 +125,21 @@ export function Sidebar() {
                   href={car.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={className}
+                  className="group flex items-center justify-between rounded-lg bg-[#f8fafc] px-3 py-2 transition hover:bg-[#eff6ff]"
                 >
-                  <span className="text-[#64748b] transition group-hover:text-[#155dfc]">
+                  <span className="text-sm font-semibold text-[#64748b] transition group-hover:text-[#155dfc]">
                     {car.brand} {car.model}
                   </span>
-                  <span className="inline-flex items-center gap-1 font-semibold text-[#0f172a]">
+                  <span className="inline-flex items-center gap-1 text-sm font-semibold text-[#0f172a]">
                     {car.bodyType}
-                    <span aria-hidden="true" className="text-xs text-[#94a3b8]">↗</span>
+                    <ArrowUpRight className="text-[#155dfc] transition group-hover:translate-x-0.5" />
                   </span>
                 </a>
               ) : (
-                <div key={`${car.brand}-${car.model}`} className={className}>
+                <div
+                  key={`${car.brand}-${car.model}`}
+                  className="flex items-center justify-between rounded-lg bg-[#f8fafc] px-3 py-2"
+                >
                   {content}
                 </div>
               );

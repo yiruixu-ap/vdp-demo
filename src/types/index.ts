@@ -26,7 +26,9 @@ export interface VehicleSpec {
 export interface UserReviewItem {
   author: string;
   date: string;
+  rating: number;
   title: string;
+  body: string;
   sentiment: "positif" | "netral" | "negatif";
 }
 

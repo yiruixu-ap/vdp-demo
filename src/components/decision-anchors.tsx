@@ -1,8 +1,9 @@
 "use client";
 
 import { useLocale } from "@/hooks/use-locale";
-import { useScrollSpy } from "@/hooks/use-scroll-spy";
+import { useScrollSpy, scrollToSection } from "@/hooks/use-scroll-spy";
 import { t, translations } from "@/data/translations";
+import { useState, useCallback } from "react";
 
 /** Anchor for every section on the page (optimisation #9). */
 const anchors: { key: keyof typeof translations; href: string }[] = [
@@ -21,7 +22,17 @@ const anchors: { key: keyof typeof translations; href: string }[] = [
 
 export function DecisionAnchors() {
   const { locale } = useLocale();
-  const activeHref = useScrollSpy(anchors.map((a) => a.href));
+  const spyActive = useScrollSpy(anchors.map((a) => a.href));
+  const [clickedActive, setClickedActive] = useState<string | null>(null);
+
+  const activeHref = clickedActive ?? spyActive;
+
+  const handleClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    scrollToSection(href, setClickedActive);
+    // Let scroll-spy take over after smooth scrolling settles.
+    window.setTimeout(() => setClickedActive(null), 600);
+  }, []);
 
   return (
     <nav
@@ -35,6 +46,7 @@ export function DecisionAnchors() {
             <span key={a.key} className="inline-flex items-center">
               <a
                 href={a.href}
+                onClick={(e) => handleClick(e, a.href)}
                 aria-current={isActive ? "true" : undefined}
                 className={`whitespace-nowrap rounded-full px-3 py-1.5 text-sm font-semibold transition ${
                   isActive

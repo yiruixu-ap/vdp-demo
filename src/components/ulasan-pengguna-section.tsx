@@ -25,9 +25,15 @@ export function UlasanPenggunaSection() {
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
-          <SentimentBadge label={t("ulasanPositive", locale)} count={reviews.positive} tone="positive" />
-          <SentimentBadge label={t("ulasanNeutral", locale)} count={reviews.neutral} tone="neutral" />
-          <SentimentBadge label={t("ulasanNegative", locale)} count={reviews.negative} tone="negative" />
+          {reviews.positive > 0 && (
+            <SentimentBadge label={t("ulasanPositive", locale)} count={reviews.positive} tone="positive" />
+          )}
+          {reviews.neutral > 0 && (
+            <SentimentBadge label={t("ulasanNeutral", locale)} count={reviews.neutral} tone="neutral" />
+          )}
+          {reviews.negative > 0 && (
+            <SentimentBadge label={t("ulasanNegative", locale)} count={reviews.negative} tone="negative" />
+          )}
         </div>
       </div>
 
@@ -38,7 +44,12 @@ export function UlasanPenggunaSection() {
               <p className="font-semibold text-[#0f172a]">{review.author}</p>
               <p className="text-xs text-[#94a3b8]">{review.date}</p>
             </div>
-            <p className="mt-1 text-sm font-semibold text-[#155dfc]">{review.title}</p>
+            <div className="mt-2 inline-flex items-center gap-1 rounded-md bg-[#eff6ff] px-2 py-0.5">
+              <span className="text-xs font-bold text-[#155dfc]">{review.rating.toFixed(1)}</span>
+              <span className="text-[10px] font-semibold text-[#64748b]">/5</span>
+            </div>
+            <p className="mt-2 text-sm font-semibold text-[#0f172a]">{review.title}</p>
+            <p className="mt-1 text-sm leading-relaxed text-[#64748b]">{review.body}</p>
           </div>
         ))}
       </div>
