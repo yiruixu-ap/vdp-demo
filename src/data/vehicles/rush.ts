@@ -159,27 +159,32 @@ export const rushSeed: VehicleSeed = {
   // Rivals sit in the same 7-seat / ~Rp 250-300 juta band as Rush.
   compare: [
     { brand: "Toyota", model: "Rush", isCurrent: true, priceJuta: 282, bodyType: "SUV", seats: 7, transmission: "Manual / AT", powerPs: 104, fuelConsumptionKmPerLiter: 13 },
-    { brand: "Toyota", model: "Avanza", priceJuta: 245, bodyType: "MPV", seats: 7, transmission: "Manual / CVT", powerPs: 106, fuelConsumptionKmPerLiter: 14 },
+    { brand: "Toyota", model: "Avanza", href: "https://otochannel.com/mobil/toyota/avanza/", priceJuta: 245, bodyType: "MPV", seats: 7, transmission: "Manual / CVT", powerPs: 106, fuelConsumptionKmPerLiter: 14 },
     { brand: "Daihatsu", model: "Terios", priceJuta: 258, bodyType: "SUV", seats: 7, transmission: "Manual / AT", powerPs: 104, fuelConsumptionKmPerLiter: 13 },
     { brand: "Honda", model: "BR-V", priceJuta: 289, bodyType: "SUV", seats: 7, transmission: "CVT", powerPs: 121, fuelConsumptionKmPerLiter: 14 },
   ],
 
+  // Production fetches the latest 3 posts from this category; demo hard-codes the list below.
+  newsCategory: "suv",
+
   relatedNews: [
     {
       title: "7 SUV 7-Penumpang Terbaik untuk Keluarga Indonesia 2026",
-      excerpt: "Perbandingan SUV dan LMPV bertiga baris yang paling banyak dicari, termasuk Toyota Rush.",
-      image: "/images/vehicles/mobil-rush.jpg",
-      href: "#",
+      href: "https://otochannel.com/mobil/suv/7-suv-7-penumpang-terbaik-keluarga-indonesia-2026/",
       category: "SUV",
       date: "2026-10-05",
     },
     {
       title: "Toyota Rush vs Daihatsu Terios: Pilih yang Mana?",
-      excerpt: "Perbandingan praktis dua SUV kembar untuk kebutuhan harian dan nilai jual kembali.",
-      image: "/images/vehicles/mobil-rush.jpg",
-      href: "#",
+      href: "https://otochannel.com/mobil/komparasi/toyota-rush-vs-daihatsu-terios-pilih-yang-mana/",
       category: "Komparasi",
       date: "2026-09-28",
+    },
+    {
+      title: "Tips Merawat Mobil SUV untuk Perjalanan Jarak Jauh",
+      href: "https://otochannel.com/mobil/tips/tips-merawat-mobil-suv-jarak-jauh/",
+      category: "Tips",
+      date: "2026-09-15",
     },
   ],
 

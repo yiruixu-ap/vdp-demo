@@ -43,3 +43,8 @@ export function formatVolume(l: number): string {
 export function formatWeight(kg: number): string {
   return `${kg.toLocaleString("id-ID")} kg`;
 }
+
+/** Convert a variant display name to a URL-friendly slug. */
+export function variantToSlug(name: string): string {
+  return name.toLowerCase().replace(/\s+/g, "-");
+}

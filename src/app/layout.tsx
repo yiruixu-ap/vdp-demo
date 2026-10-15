@@ -25,6 +25,7 @@ export const metadata: Metadata = {
   title: "Toyota Rush 2026 - Harga OTR, Cicilan & Ulasan | otochannel",
   description:
     "Detail Toyota Rush 2026: harga OTR Jakarta, varian, cicilan, biaya bulanan, spesifikasi, ulasan pengguna & ahli.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://otochannel.com"),
   robots: noindex
     ? {
         index: false,

@@ -51,8 +51,6 @@ export interface FaqItem {
 
 export interface RelatedNews {
   title: string;
-  excerpt: string;
-  image: string;
   href: string;
   category: string;
   date: string;
@@ -68,6 +66,8 @@ export interface CompareCar {
   brand: string;
   model: string;
   isCurrent?: boolean;
+  /** Station relative path if the rival detail page exists; leave undefined for rivals without a page. */
+  href?: string;
   priceJuta: number;
   bodyType: string;
   seats: number;
@@ -140,6 +140,9 @@ export interface VehicleDetail {
   faq: FaqItem[];
 
   compare: CompareCar[];
+
+  /** Category slug used by production to fetch the latest related news from the CMS. Demo uses `relatedNews` directly. */
+  newsCategory: string;
 
   relatedNews: RelatedNews[];
   seoArticle: { title: Localized; paragraphs: Localized[] };

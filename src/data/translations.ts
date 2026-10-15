@@ -121,6 +121,7 @@ export const translations: Record<string, Record<Locale, string>> = {
 
   // Berita
   beritaTitle: { id: "Berita Terkait", en: "Related News", fil: "Kaugnay na Balita" },
+  onThisPage: { id: "Isi halaman", en: "On this page", fil: "Nilalaman" },
 
   // Footer
   footerDesc: {

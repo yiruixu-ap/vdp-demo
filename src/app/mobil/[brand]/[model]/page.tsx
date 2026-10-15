@@ -28,9 +28,18 @@ export async function generateMetadata({ params }: { params: Promise<{ brand: st
   const { brand, model } = await params;
   const vehicle = getVehicleDetail(brand, model);
   if (!vehicle) return {};
+  const canonical = `/mobil/${brand}/${model}`;
   return {
     title: `${vehicle.brand} ${vehicle.model} ${vehicle.year} - Harga Baru, Cicilan & Ulasan | otochannel`,
     description: `Detail ${vehicle.brand} ${vehicle.model} ${vehicle.year}: harga mobil baru, varian, cicilan, biaya bulanan, spesifikasi, ulasan pengguna & ahli.`,
+    alternates: {
+      languages: {
+        "id-ID": canonical,
+        "en": `${canonical}?lang=en`,
+        "fil-PH": `${canonical}?lang=fil`,
+        "x-default": canonical,
+      },
+    },
   };
 }
 
@@ -88,11 +97,13 @@ export default async function VehicleDetailPage({
               <FaqSection />
 
               {/* 7. Editorial, fully expanded by default */}
-              <BeritaTerkaitSection />
               <SeoArticleSection />
 
               {/* 8. Rivals — always last */}
               <BandingkanSection />
+
+              {/* 9. Related news — after rivals */}
+              <BeritaTerkaitSection />
             </div>
 
             {/* Right: sticky sidebar */}
