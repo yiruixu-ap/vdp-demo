@@ -13,8 +13,6 @@ const anchors: { key: keyof typeof translations; href: string }[] = [
   { key: "anchorHargaNyata", href: "#harga-nyata" },
   { key: "anchorBiayaBulanan", href: "#biaya-bulanan" },
   { key: "anchorUlasan", href: "#ulasan" },
-  { key: "anchorUlasanAhli", href: "#ulasan-ahli" },
-  { key: "anchorBrand", href: "#brand" },
   { key: "anchorFaq", href: "#faq" },
   { key: "anchorBandingkan", href: "#bandingkan" },
   { key: "anchorBerita", href: "#berita" },
